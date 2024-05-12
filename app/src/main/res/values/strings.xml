@@ -2,9 +2,12 @@
     <string name="app_name">GV BLE</string>
     <string name="powerModes">Safe mode</string>
     <string name="lockSwitchText">Lock</string>
-    <string name="dutyCycleText">Duty cycle</string>
-    <string name="frequency">Frequency</string>
+    <string name="dutyCycleText">Duty cycle (%)</string>
+    <string name="frequency">Frequency (Hz)</string>
     <string name="pwmOnBtText">SET PWM</string>
+    <string name="decrFreqBtText">-</string>
+    <string name="freqRpmText">60Hz (3600 rpm)</string>
+    <string name="incrFreqBtText">+</string>
     <string name="weakPowerOnBtText">POWER ON (1%)</string>
     <string name="mediumPowerOnBtText">POWER ON (70%)</string>
     <string name="fullPowerOnBtText">POWER ON (100%)</string>
