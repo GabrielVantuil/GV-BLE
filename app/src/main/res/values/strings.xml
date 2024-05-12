@@ -5,8 +5,9 @@
     <string name="dutyCycleText">Duty cycle</string>
     <string name="frequency">Frequency</string>
     <string name="pwmOnBtText">SET PWM</string>
-    <string name="fullPowerOnBtText">POWER ON (100%)</string>
     <string name="weakPowerOnBtText">POWER ON (1%)</string>
+    <string name="mediumPowerOnBtText">POWER ON (70%)</string>
+    <string name="fullPowerOnBtText">POWER ON (100%)</string>
     <string name="powerOffBtText">POWER OFF</string>
     <string name="dutyCycleStartVal">1</string>
     <string name="frequencyStartValue">60</string>

@@ -179,7 +179,7 @@
         <Button
             android:id="@+id/weakPowerOnBt"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:layout_marginTop="24dp"
             android:text="@string/weakPowerOnBtText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -188,12 +188,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/mediumPowerOnBt"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/mediumPowerOnBtText"
+            app:layout_constraintTop_toBottomOf="@+id/weakPowerOnBt"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
             android:id="@+id/fullPowerOnBt"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:text="@string/fullPowerOnBtText"
-            app:layout_constraintTop_toBottomOf="@+id/weakPowerOnBt"
+            app:layout_constraintTop_toBottomOf="@+id/mediumPowerOnBt"
             tools:layout_editor_absoluteX="0dp" />
 
         <Button

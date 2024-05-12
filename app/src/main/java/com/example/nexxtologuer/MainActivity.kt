@@ -17,17 +17,19 @@ import java.time.format.DateTimeFormatter
 
 
 private const val TAG = "GVantuil"
+private const val SAFE_PM: Int = 0
+private const val PUSH_PM: Int = 1
+private const val PERSISTENT_PM: Int = 2
+
+private const val MEDIUM_POWER: Int = 70
+
+private const val POWER_TIMEOUT: Int = 1500
+private const val UPDATE_CONN_PARAMS_TIMER: Long = 100
+
 class MainActivity : ComponentActivity() {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var torch: TorchManager
-    private val POWER_TIMEOUT: Int = 1500
-    private val UPDATE_CONN_PARAMS_TIMER: Long = 100
-
     private var powerMode: Int = 0
-    private val SAFE_PM: Int = 0
-    private val PUSH_PM: Int = 1
-    private val PERSISTENT_PM: Int = 2
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +52,24 @@ class MainActivity : ComponentActivity() {
         mainBinding.weakPowerOnBt.setOnTouchListener { _, event ->
             if (event.action == ACTION_DOWN){
                 if(powerMode == SAFE_PM)        weakPowerOnCountDownTimer.start()
-                else    torch.writePwmCharacteristic(1000, 1, 0)
+                else    torch.writePwmCharacteristic(10000, 1, 0)
             }
             if (event.action == ACTION_UP){
                 if(powerMode != PERSISTENT_PM) torch.writePowerCharacteristic(false)
                 torch.shouldPowerOff = (powerMode != PERSISTENT_PM)
                 weakPowerOnCountDownTimer.cancel()
+            }
+            true
+        }
+        mainBinding.mediumPowerOnBt.setOnTouchListener { _, event ->
+            if (event.action == ACTION_DOWN){
+                if(powerMode == SAFE_PM)        mediumPowerOnCountDownTimer.start()
+                else    torch.writePwmCharacteristic(10000, MEDIUM_POWER, 0)
+            }
+            if (event.action == ACTION_UP){
+                if(powerMode != PERSISTENT_PM) torch.writePowerCharacteristic(false)
+                torch.shouldPowerOff = (powerMode != PERSISTENT_PM)
+                mediumPowerOnCountDownTimer.cancel()
             }
             true
         }
@@ -77,17 +91,21 @@ class MainActivity : ComponentActivity() {
     }
     private val weakPowerOnCountDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, UPDATE_CONN_PARAMS_TIMER) {
         override fun onTick(l: Long) {
-            torch.writePwmCharacteristic(1000, 1, POWER_TIMEOUT)
+            torch.writePwmCharacteristic(10000, 1, POWER_TIMEOUT)
         }
-        override fun onFinish() {
+        override fun onFinish() {}
+    }
+    private val mediumPowerOnCountDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, UPDATE_CONN_PARAMS_TIMER) {
+        override fun onTick(l: Long) {
+            torch.writePwmCharacteristic(10000, MEDIUM_POWER, POWER_TIMEOUT)
         }
+        override fun onFinish() {}
     }
     private val fullPowerOnCountDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, UPDATE_CONN_PARAMS_TIMER) {
         override fun onTick(l: Long) {
             torch.writePowerCharacteristic(true, POWER_TIMEOUT)
         }
-        override fun onFinish() {
-        }
+        override fun onFinish() {}
     }
     private fun nextPowerModes(){
         powerMode = (powerMode + 1) % 3
