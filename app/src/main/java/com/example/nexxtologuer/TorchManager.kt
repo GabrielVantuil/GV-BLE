@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.ParcelUuid
 import android.util.Log
 import androidx.activity.ComponentActivity
+import com.example.gvble.databinding.ActivityFlashlightBinding
 import com.example.gvble.databinding.ActivityMainBinding
 import java.util.UUID
 
@@ -20,7 +21,7 @@ val TORCH_LED_PWM_CHAR_UUID: UUID =           UUID.fromString("00000003-$UUID_BA
 val TORCH_READ_LDR_CHAR_UUID: UUID =          UUID.fromString("00000006-$UUID_BASE")
 
 @SuppressLint("MissingPermission")
-class TorchManager(context: Context, activity: ComponentActivity, var view: ActivityMainBinding) : BtManager(context, activity){
+class TorchManager(context: Context, activity: ComponentActivity, var view: ActivityFlashlightBinding) : BtManager(context, activity){
     override var filters: ArrayList<ScanFilter> = arrayListOf(ScanFilter.Builder().setServiceUuid(ParcelUuid(TORCH_SERVICE_UUID)).build())
     override fun onConnected(gatt: BluetoothGatt) {
         setConnectionStatus("Connected to ${gatt.device.name} (${gatt.device.address})", true, null)

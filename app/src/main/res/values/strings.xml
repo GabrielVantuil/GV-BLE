@@ -14,5 +14,7 @@
     <string name="powerOffBtText">POWER OFF</string>
     <string name="dutyCycleStartVal">1</string>
     <string name="frequencyStartValue">60</string>
+    <string name="flashlightAppBtText">Flashlight</string>
+    <string name="povAppBtText">POV display</string>
 
 </resources>
