@@ -1,4 +1,4 @@
-package com.example.nexxtologuer
+package com.example.gvble
 
 class utils {
     companion object {

@@ -1,8 +1,7 @@
-package com.example.nexxtologuer
+package com.example.gvble
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +9,6 @@ import android.util.Log
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
 import androidx.activity.ComponentActivity
-import com.example.gvble.TorchManager
 import com.example.gvble.databinding.ActivityFlashlightBinding
 import java.util.Locale
 
@@ -24,9 +22,11 @@ private const val MEDIUM_POWER: Int = 70
 private const val POWER_TIMEOUT: Int = 1500
 private const val UPDATE_CONN_PARAMS_TIMER: Long = 100
 private const val ONE_RPM: Float = 1F/60
+
+@SuppressLint("ClickableViewAccessibility")
 class FlashlightActivity(private var context: Context, var flashlightBinding: ActivityFlashlightBinding, private var main: ComponentActivity): ComponentActivity()  {
 
-    private lateinit var torch: TorchManager
+    private var torch: TorchManager
     private var powerMode: Int = 0
     private var frequency: Float = 60F
     private var freqIncrBtCounter: Int = 0

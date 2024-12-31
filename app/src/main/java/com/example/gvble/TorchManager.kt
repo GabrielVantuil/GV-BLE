@@ -12,13 +12,7 @@ import com.example.gvble.databinding.ActivityFlashlightBinding
 import com.example.gvble.databinding.ActivityMainBinding
 import java.util.UUID
 
-const val LABEL_SEARCHING = "Scanning"
-const val UUID_BASE = "4756-616e-7475-696c5f424c45"//"4756-616e-7475-696c5f424c45" = {0x47, 0x56, 0x61, 0x6e, 0x74, 0x75, 0x69, 0x6c, 0x5f, 0x42, 0x4c, 0x45}= "GVantuil_BLE"
-val TORCH_SERVICE_UUID: UUID =                UUID.fromString("00000000-$UUID_BASE")
-val TORCH_LOCK_CHAR_UUID: UUID =              UUID.fromString("00000001-$UUID_BASE")
-val TORCH_LED_POWER_CHAR_UUID: UUID =         UUID.fromString("00000002-$UUID_BASE")
-val TORCH_LED_PWM_CHAR_UUID: UUID =           UUID.fromString("00000003-$UUID_BASE")
-val TORCH_READ_LDR_CHAR_UUID: UUID =          UUID.fromString("00000006-$UUID_BASE")
+private const val LABEL_SEARCHING = "Scanning"
 
 @SuppressLint("MissingPermission")
 class TorchManager(context: Context, activity: ComponentActivity, var view: ActivityFlashlightBinding) : BtManager(context, activity){

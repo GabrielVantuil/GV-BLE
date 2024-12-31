@@ -2,24 +2,18 @@ package com.example.gvble
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.MotionEvent.ACTION_DOWN
-import android.view.MotionEvent.ACTION_UP
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.gvble.databinding.ActivityFlashlightBinding
 import com.example.gvble.databinding.ActivityMainBinding
-import com.example.nexxtologuer.FlashlightActivity
-import java.util.Locale
-
+import com.example.gvble.databinding.ActivityPovDisplayBinding
 
 
 class MainActivity : ComponentActivity() {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var flashlightBinding: ActivityFlashlightBinding
+    private lateinit var povDisplayBinding: ActivityPovDisplayBinding
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +28,9 @@ class MainActivity : ComponentActivity() {
             FlashlightActivity(this, flashlightBinding, this@MainActivity)
         }
         mainBinding.povAppBt.setOnClickListener{
-            Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show()
+            povDisplayBinding = ActivityPovDisplayBinding.inflate(layoutInflater)
+            setContentView(povDisplayBinding.root)
+            PovDisplayActivity(this, povDisplayBinding, this@MainActivity)
         }
 
     }
