@@ -80,6 +80,7 @@
                             android:id="@+id/textToSendTextBox"
                             android:layout_width="150dp"
                             android:layout_height="28dp"
+                            android:layout_marginVertical="5dp"
                             android:layout_weight="1"
                             android:background="#FFFFFF"
                             android:ems="1"
@@ -211,6 +212,59 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/powerOffBt">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/desiredRpmLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/desiredRpmText"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/desiredRpmTextBox"
+                    android:layout_width="150dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:ems="1"
+                    android:hint="@string/desiredRpmText"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:text="67"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/powerMotorBt"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="@string/powerMotorText" />
+
+            <Button
+                android:id="@+id/motorOffBt"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="@string/powerOffBtText" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/powerOffBt"

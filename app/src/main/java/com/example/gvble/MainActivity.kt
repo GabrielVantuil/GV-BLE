@@ -1,6 +1,10 @@
 package com.example.gvble
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -37,6 +41,4 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
     }
-
-
 }

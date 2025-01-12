@@ -26,18 +26,14 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         setupTextModeListeners()
         setupSingleLedModeListeners()
         setupColorChangerListeners()
+        setupMotorPowerListeners()
 
         binding.powerOffBt.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    povDisplay.writeModeCharacteristic(0)
-                }
-                MotionEvent.ACTION_UP -> {
-                    ledsRgbVal = ByteArray(30)
-                    for (i in 0..<(20)) {
-//                        ledsRgbVal = ByteArray(povDisplay.totalLeds * 3)
-//                        for (i in 0..<(povDisplay.totalLeds * 3)) {
-                        ledsRgbVal[i] = 100.toByte()
+                    ledsRgbVal = ByteArray(povDisplay.totalLeds)
+                    for (i in 0..<povDisplay.totalLeds) {
+                        ledsRgbVal[i] = 0.toByte()
                     }
                     povDisplay.writeSetLedsCharacteristic(ledsRgbVal)
                 }
@@ -72,6 +68,16 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         }
     }
 
+    private fun setupMotorPowerListeners(){
+        binding.powerMotorBt.setOnClickListener {
+            val value = binding.desiredRpmTextBox.text.toString().toInt()
+            povDisplay.writeSetParamsCharacteristic(byteArrayOf(0, value.toByte()))
+        }
+        binding.motorOffBt.setOnClickListener {
+            povDisplay.writeSetParamsCharacteristic(byteArrayOf(0, 0))
+        }
+    }
+
     private fun setupTextModeListeners(){
         binding.sendTextBt.setOnClickListener {
             val text = binding.textToSendTextBox.text.toString()
@@ -83,7 +89,8 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
     private fun setupColorChangerListeners() {
         val onRgbSeekBarChange = object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                updateSingleLedColor()
+                updateColor()
+                if(binding.modeSpinner.selectedItemPosition == 2)   setAllLeds()
             }
             override fun onStartTrackingTouch(seekBar: SeekBar){}
             override fun onStopTrackingTouch(seekBar: SeekBar){}
@@ -95,12 +102,12 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
 
     private fun setupSingleLedModeListeners(){
         binding.singleLedSelector.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {}
             override fun onStartTrackingTouch(seekBar: SeekBar){}
-            override fun onStopTrackingTouch(seekBar: SeekBar){
-                povDisplay.writeSetLedsCharacteristic(ledsRgbVal)
+            override fun onStopTrackingTouch(seekBar: SeekBar){}
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 val index = (binding.singleLedSelector.progress * (povDisplay.totalLeds-1) / binding.singleLedSelector.max)
                 binding.ledIndex.text = index.toString()
+                ledsRgbVal = ByteArray(povDisplay.totalLeds*3)
                 for(i in 0..<povDisplay.totalLeds){
                     if(i != index) {
                         ledsRgbVal[i * 3 + 0] = 0
@@ -113,6 +120,7 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
                         ledsRgbVal[i * 3 + 2] = b.toByte()
                     }
                 }
+                povDisplay.writeSetLedsCharacteristic(ledsRgbVal)
                 var buff = " "
                 for(i in 0..<ledsRgbVal.size){
                     buff += ledsRgbVal[i].toString(16).padStart(2, '0')+" "
@@ -121,8 +129,17 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
             }
         })
     }
+    private fun setAllLeds(){
+        ledsRgbVal = ByteArray(povDisplay.totalLeds*3)
+        for(i in 0..<povDisplay.totalLeds){
+            ledsRgbVal[i * 3 + 0] = r.toByte()
+            ledsRgbVal[i * 3 + 1] = g.toByte()
+            ledsRgbVal[i * 3 + 2] = b.toByte()
+        }
+        povDisplay.writeSetLedsCharacteristic(ledsRgbVal)
+    }
     @SuppressLint("SetTextI18n")
-    private fun updateSingleLedColor(){
+    private fun updateColor(){
         r = (binding.rSelector.progress * 255 / binding.rSelector.max)
         g = (binding.gSelector.progress * 255 / binding.gSelector.max)
         b = (binding.bSelector.progress * 255 / binding.bSelector.max)

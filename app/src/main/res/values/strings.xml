@@ -22,6 +22,9 @@
 
     <!--    POV display    -->
     <string name="povDisplaySendText">Send</string>
+    <string name="powerMotorText">Power motor</string>
+    <string name="motorOffText">Motor off</string>
+    <string name="desiredRpmText">Desired RPM</string>
     <string-array name="displayModes">
         <item>Show text mode</item>
         <item>Set single led mode</item>
