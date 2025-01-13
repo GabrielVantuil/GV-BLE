@@ -15,6 +15,8 @@ private const val LABEL_SEARCHING = "Scanning"
 @SuppressLint("MissingPermission")
 class PovDisplayManager(context: Context, activity: ComponentActivity, var view: ActivityPovDisplayBinding) : BtManager(context, activity){
     val totalLeds = 44
+    private var synchronized : Byte = 0.toByte()
+    private var rpm : Byte = 0.toByte()
 
     override var filters: ArrayList<ScanFilter> = arrayListOf(ScanFilter.Builder().setServiceUuid(ParcelUuid(POV_DISPLAY_SERVICE_UUID)).build())
     override fun onConnected(gatt: BluetoothGatt) {
@@ -72,12 +74,20 @@ class PovDisplayManager(context: Context, activity: ComponentActivity, var view:
         val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(POV_DISPLAY_SET_LEDS_CHAR_UUID)
         writeCharacteristic(writeChangePayloadCharacteristic, leds)
     }
-    fun writeSetParamsCharacteristic(params: ByteArray){
+    fun writeSetParamsCharacteristic(){
         if(!isConnected)    return
+        val params = byteArrayOf(0, rpm, synchronized)
         val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(POV_DISPLAY_SET_PARAMS_UUID)
         writeCharacteristic(writeChangePayloadCharacteristic, params)
     }
-
+    fun setSynchronized(synchronized: Byte){
+        this.synchronized = synchronized
+        writeSetParamsCharacteristic()
+    }
+    fun setMotorRpm(motorRpm: Byte){
+        this.rpm = motorRpm
+        writeSetParamsCharacteristic()
+    }
     override fun startBleScan() : Boolean{
         return if(super.startBleScan()) {
             setConnectionStatus(LABEL_SEARCHING, null, null)

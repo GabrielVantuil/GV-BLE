@@ -27,7 +27,7 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         setupSingleLedModeListeners()
         setupColorChangerListeners()
         setupMotorPowerListeners()
-
+        setupSincronizedListener()
         binding.powerOffBt.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -71,10 +71,10 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
     private fun setupMotorPowerListeners(){
         binding.powerMotorBt.setOnClickListener {
             val value = binding.desiredRpmTextBox.text.toString().toInt()
-            povDisplay.writeSetParamsCharacteristic(byteArrayOf(0, value.toByte()))
+            povDisplay.setMotorRpm(value.toByte())
         }
         binding.motorOffBt.setOnClickListener {
-            povDisplay.writeSetParamsCharacteristic(byteArrayOf(0, 0))
+            povDisplay.setMotorRpm(0)
         }
     }
 
@@ -149,7 +149,23 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
                 b.toString(16).padStart(2, '0')
         binding.singleColorLedVal.text = color
         binding.singleColorLedVal.setBackgroundColor(Color.parseColor(color))
-
     }
-
+    private fun setupSincronizedListener(){
+        binding.sincronizeCheckbox.setOnClickListener {
+            onSincChanged()
+        }
+        binding.offsetTextbox.doAfterTextChanged {
+            onSincChanged()
+        }
+    }
+    private fun onSincChanged(){
+        if(!binding.sincronizeCheckbox.isChecked)    povDisplay.setSynchronized(0xFF.toByte())
+        else {
+            val offset =
+                if(!binding.offsetTextbox.text.isEmpty())
+                    binding.offsetTextbox.text.toString().toInt() * 255 / 360
+                else 0
+            povDisplay.setSynchronized(offset.toByte())
+        }
+    }
 }
