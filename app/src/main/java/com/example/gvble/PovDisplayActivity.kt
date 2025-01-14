@@ -10,7 +10,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import androidx.activity.ComponentActivity
+import androidx.core.widget.doAfterTextChanged
 import com.example.gvble.databinding.ActivityPovDisplayBinding
+import java.nio.ByteBuffer
 
 @SuppressLint("ClickableViewAccessibility")
 class PovDisplayActivity(private var context: Context, var binding: ActivityPovDisplayBinding, private var main: ComponentActivity): ComponentActivity()  {
@@ -61,7 +63,6 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
                     1 -> binding.setSingleLedGroup.visibility = View.VISIBLE
                 }
                 povDisplay.writeModeCharacteristic(position)
-                Log.i("GV", "position $position")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -107,35 +108,14 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 val index = (binding.singleLedSelector.progress * (povDisplay.totalLeds-1) / binding.singleLedSelector.max)
                 binding.ledIndex.text = index.toString()
-                ledsRgbVal = ByteArray(povDisplay.totalLeds*3)
-                for(i in 0..<povDisplay.totalLeds){
-                    if(i != index) {
-                        ledsRgbVal[i * 3 + 0] = 0
-                        ledsRgbVal[i * 3 + 1] = 0
-                        ledsRgbVal[i * 3 + 2] = 0
-                    }
-                    else{
-                        ledsRgbVal[i * 3 + 0] = r.toByte()
-                        ledsRgbVal[i * 3 + 1] = g.toByte()
-                        ledsRgbVal[i * 3 + 2] = b.toByte()
-                    }
-                }
+                ledsRgbVal = byteArrayOf(r.toByte(), g.toByte(), b.toByte(), index.toByte())
+
                 povDisplay.writeSetLedsCharacteristic(ledsRgbVal)
-                var buff = " "
-                for(i in 0..<ledsRgbVal.size){
-                    buff += ledsRgbVal[i].toString(16).padStart(2, '0')+" "
-                }
-                Log.i("GV", buff)
             }
         })
     }
     private fun setAllLeds(){
-        ledsRgbVal = ByteArray(povDisplay.totalLeds*3)
-        for(i in 0..<povDisplay.totalLeds){
-            ledsRgbVal[i * 3 + 0] = r.toByte()
-            ledsRgbVal[i * 3 + 1] = g.toByte()
-            ledsRgbVal[i * 3 + 2] = b.toByte()
-        }
+        ledsRgbVal = byteArrayOf(r.toByte(), g.toByte(), b.toByte())
         povDisplay.writeSetLedsCharacteristic(ledsRgbVal)
     }
     @SuppressLint("SetTextI18n")
@@ -151,7 +131,7 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         binding.singleColorLedVal.setBackgroundColor(Color.parseColor(color))
     }
     private fun setupSincronizedListener(){
-        binding.sincronizeCheckbox.setOnClickListener {
+        binding.synchronizeCheckbox.setOnClickListener {
             onSincChanged()
         }
         binding.offsetTextbox.doAfterTextChanged {
@@ -159,7 +139,7 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         }
     }
     private fun onSincChanged(){
-        if(!binding.sincronizeCheckbox.isChecked)    povDisplay.setSynchronized(0xFF.toByte())
+        if(!binding.synchronizeCheckbox.isChecked)    povDisplay.setSynchronized(0xFF.toByte())
         else {
             val offset =
                 if(!binding.offsetTextbox.text.isEmpty())
