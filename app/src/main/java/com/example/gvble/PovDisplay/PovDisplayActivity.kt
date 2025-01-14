@@ -1,9 +1,8 @@
-package com.example.gvble
+package com.example.gvble.PovDisplay
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
@@ -11,8 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import androidx.activity.ComponentActivity
 import androidx.core.widget.doAfterTextChanged
+import com.example.gvble.R
 import com.example.gvble.databinding.ActivityPovDisplayBinding
-import java.nio.ByteBuffer
 
 @SuppressLint("ClickableViewAccessibility")
 class PovDisplayActivity(private var context: Context, var binding: ActivityPovDisplayBinding, private var main: ComponentActivity): ComponentActivity()  {
@@ -29,7 +28,7 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         setupSingleLedModeListeners()
         setupColorChangerListeners()
         setupMotorPowerListeners()
-        setupSincronizedListener()
+        setupSynchronizedListener()
         binding.powerOffBt.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -88,7 +87,7 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
     }
 
     private fun setupColorChangerListeners() {
-        val onRgbSeekBarChange = object : SeekBar.OnSeekBarChangeListener{
+        val onRgbSeekBarChange = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 updateColor()
                 if(binding.modeSpinner.selectedItemPosition == 2)   setAllLeds()
@@ -102,7 +101,8 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
     }
 
     private fun setupSingleLedModeListeners(){
-        binding.singleLedSelector.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        binding.singleLedSelector.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar){}
             override fun onStopTrackingTouch(seekBar: SeekBar){}
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -130,15 +130,15 @@ class PovDisplayActivity(private var context: Context, var binding: ActivityPovD
         binding.singleColorLedVal.text = color
         binding.singleColorLedVal.setBackgroundColor(Color.parseColor(color))
     }
-    private fun setupSincronizedListener(){
+    private fun setupSynchronizedListener(){
         binding.synchronizeCheckbox.setOnClickListener {
-            onSincChanged()
+            onSyncChanged()
         }
         binding.offsetTextbox.doAfterTextChanged {
-            onSincChanged()
+            onSyncChanged()
         }
     }
-    private fun onSincChanged(){
+    private fun onSyncChanged(){
         if(!binding.synchronizeCheckbox.isChecked)    povDisplay.setSynchronized(0xFF.toByte())
         else {
             val offset =

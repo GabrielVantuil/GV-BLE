@@ -1,4 +1,4 @@
-package com.example.gvble
+package com.example.gvble.PovDisplay
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGatt
@@ -8,17 +8,24 @@ import android.content.Context
 import android.os.ParcelUuid
 import android.util.Log
 import androidx.activity.ComponentActivity
+import com.example.gvble.BtManager
+import com.example.gvble.POV_DISPLAY_MODE_CHAR_UUID
+import com.example.gvble.POV_DISPLAY_SERVICE_UUID
+import com.example.gvble.POV_DISPLAY_SET_LEDS_CHAR_UUID
+import com.example.gvble.POV_DISPLAY_SET_PARAMS_UUID
+import com.example.gvble.POV_DISPLAY_SET_TEXT_CHAR_UUID
+import com.example.gvble.FLASHLIGHT_READ_LDR_CHAR_UUID
 import com.example.gvble.databinding.ActivityPovDisplayBinding
 
 private const val LABEL_SEARCHING = "Scanning"
-
 @SuppressLint("MissingPermission")
 class PovDisplayManager(context: Context, activity: ComponentActivity, var view: ActivityPovDisplayBinding) : BtManager(context, activity){
     val totalLeds = 44
     private var synchronized : Byte = 0.toByte()
     private var rpm : Byte = 0.toByte()
 
-    override var filters: ArrayList<ScanFilter> = arrayListOf(ScanFilter.Builder().setServiceUuid(ParcelUuid(POV_DISPLAY_SERVICE_UUID)).build())
+    override var filters: ArrayList<ScanFilter> = arrayListOf(
+        ScanFilter.Builder().setServiceUuid(ParcelUuid(POV_DISPLAY_SERVICE_UUID)).build())
     override fun onConnected(gatt: BluetoothGatt) {
         setConnectionStatus("Connected to ${gatt.device.name} (${gatt.device.address})", true, null)
         bluetoothGatt = gatt
@@ -38,7 +45,7 @@ class PovDisplayManager(context: Context, activity: ComponentActivity, var view:
         when (status) {
             BluetoothGatt.GATT_SUCCESS -> {
                 when(characteristic.uuid){
-                    TORCH_READ_LDR_CHAR_UUID -> {
+                    FLASHLIGHT_READ_LDR_CHAR_UUID -> {
                         Log.i(TAG, "Read LDR: " + (payload[0] * 256 + payload[1]))
                     }
                 }
@@ -47,37 +54,48 @@ class PovDisplayManager(context: Context, activity: ComponentActivity, var view:
                 Log.e("BluetoothGattCallback", "Read not permitted for ${characteristic.uuid}!")
             }
             else -> {
-                Log.e("BluetoothGattCallback", "Characteristic read failed for ${characteristic.uuid}, error: $status")
+                Log.e(
+                    "BluetoothGattCallback",
+                    "Characteristic read failed for ${characteristic.uuid}, error: $status"
+                )
             }
         }
     }
     override fun onCharacteristicWriteCallback(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int) {
-        when(characteristic.uuid){
-            TORCH_LOCK_CHAR_UUID -> {
-
-            }
-        }
+//        when(characteristic.uuid){
+//            TORCH_LOCK_CHAR_UUID -> {
+//
+//            }
+//        }
     }
 
     fun writeModeCharacteristic(mode: Int){
         if(!isConnected)    return
-        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(POV_DISPLAY_MODE_CHAR_UUID)
+        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(
+            POV_DISPLAY_MODE_CHAR_UUID
+        )
         writeCharacteristic(writeChangePayloadCharacteristic, byteArrayOf(mode.toByte()))
     }
     fun writeSendTextCharacteristic(text : ByteArray){
         if(!isConnected)    return
-        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(POV_DISPLAY_SET_TEXT_CHAR_UUID)
+        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(
+            POV_DISPLAY_SET_TEXT_CHAR_UUID
+        )
         writeCharacteristic(writeChangePayloadCharacteristic, text)
     }
     fun writeSetLedsCharacteristic(leds: ByteArray){
         if(!isConnected)    return
-        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(POV_DISPLAY_SET_LEDS_CHAR_UUID)
+        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(
+            POV_DISPLAY_SET_LEDS_CHAR_UUID
+        )
         writeCharacteristic(writeChangePayloadCharacteristic, leds)
     }
     fun writeSetParamsCharacteristic(){
         if(!isConnected)    return
         val params = byteArrayOf(0, rpm, synchronized)
-        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(POV_DISPLAY_SET_PARAMS_UUID)
+        val writeChangePayloadCharacteristic = bluetoothGatt.getService(POV_DISPLAY_SERVICE_UUID).getCharacteristic(
+            POV_DISPLAY_SET_PARAMS_UUID
+        )
         writeCharacteristic(writeChangePayloadCharacteristic, params)
     }
     fun setSynchronized(synchronized: Byte){

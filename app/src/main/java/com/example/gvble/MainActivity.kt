@@ -1,14 +1,11 @@
 package com.example.gvble
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.example.gvble.Flashlight.FlashlightActivity
+import com.example.gvble.PovDisplay.PovDisplayActivity
 import com.example.gvble.databinding.ActivityFlashlightBinding
 import com.example.gvble.databinding.ActivityMainBinding
 import com.example.gvble.databinding.ActivityPovDisplayBinding
