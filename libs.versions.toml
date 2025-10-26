@@ -1,0 +1,47 @@
+toml
+[versions]
+# Recommended to align with your Android Studio version for best compatibility
+agp = "8.1.2"
+# Align this with the Kotlin version used by the Android Gradle Plugin
+kotlin = "1.9.10"
+coreKtx = "1.12.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.10.0"
+constraintlayout = "2.1.4"
+lifecycleLivedataKtx = "2.6.2"
+lifecycleViewmodelKtx = "2.6.2"
+
+[libraries]
+# AndroidX Core
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# UI
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+# Lifecycle (for ViewModel and LiveData)
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+
+# Kotlin Standard Library (no version needed if using the Kotlin plugin)
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8" }
+
+[plugins]
+# Android Gradle Plugin
+android-application = { id = "com.android.application", version.ref = "agp" }
+# Kotlin Gradle Plugin
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+[bundles]
+# You can group common dependencies together
+# Example:
+# lifecycle = ["androidx-lifecycle-livedata-ktx", "androidx-lifecycle-viewmodel-ktx"]

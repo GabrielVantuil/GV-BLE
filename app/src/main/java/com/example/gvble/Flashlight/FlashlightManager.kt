@@ -5,8 +5,13 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.le.ScanFilter
 import android.content.Context
+import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.ParcelUuid
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import androidx.activity.ComponentActivity
 import com.example.gvble.BtManager
 import com.example.gvble.FLASHLIGHT_LED_POWER_CHAR_UUID
@@ -15,36 +20,67 @@ import com.example.gvble.FLASHLIGHT_LOCK_CHAR_UUID
 import com.example.gvble.FLASHLIGHT_READ_LDR_CHAR_UUID
 import com.example.gvble.FLASHLIGHT_SERVICE_UUID
 import com.example.gvble.databinding.ActivityFlashlightBinding
+import java.util.Locale
 
-@SuppressLint("MissingPermission")
-class FlashlightManager(context: Context, activity: ComponentActivity, var view: ActivityFlashlightBinding) : BtManager(context, activity){
-    private val LABEL_SEARCHING = "Scanning"
+
+@SuppressLint("MissingPermission", "ClickableViewAccessibility")
+class FlashlightManager() : BtManager(){
+    private lateinit var binding: ActivityFlashlightBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityFlashlightBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        FlashlightActivity(binding, this)
+        startBleScan()
+
+    }
 
     override var filters: ArrayList<ScanFilter> = arrayListOf(
         ScanFilter.Builder().setServiceUuid(ParcelUuid(FLASHLIGHT_SERVICE_UUID)).build())
+
     override fun onConnected(gatt: BluetoothGatt) {
-        setConnectionStatus("Connected to ${gatt.device.name} (${gatt.device.address})", true, null)
+        runOnUiThread {
+            binding.connectionStatus.text = "Connected to ${gatt.device.name} (${gatt.device.address})"
+        }
         bluetoothGatt = gatt
+        bluetoothGatt.discoverServices()
         isConnected = true
+    }
+    private fun setBleButtonsEnabled(isEnabled: Boolean) {
+        runOnUiThread {
+            binding.pwmOn.isEnabled = isEnabled
+            binding.powerOffBt.isEnabled = isEnabled
+            binding.weakPowerOnBt.isEnabled = isEnabled
+            binding.mediumPowerOnBt.isEnabled = isEnabled
+            binding.fullPowerOnBt.isEnabled = isEnabled
+        }
+    }
+
+    override fun onServicesDiscovered(gatt: BluetoothGatt) {
+        Log.i(tag, "onServicesDiscovered _________________________")
+        setBleButtonsEnabled(true)
     }
     var shouldPowerOff: Boolean = false
     override fun onDisconnected(gatt: BluetoothGatt) {
-        setConnectionStatus("Disconnected - $LABEL_SEARCHING", false, null)
+        runOnUiThread {
+            binding.connectionStatus.text = "Disconnected - Scanning"
+        }
+        setBleButtonsEnabled(false)
         isConnected = false
     }
     override fun onConnectionError(gatt: BluetoothGatt, status: Int) {
-        setConnectionStatus(LABEL_SEARCHING,  false, null)
-        //"Error $status encountered for ${gatt.device.address}! Disconnecting..."
+        runOnUiThread {
+            binding.connectionStatus.text = "Scanning"
+        }
         isConnected = false
-    }
-    override fun onServicesDiscovered(gatt: BluetoothGatt) {
     }
     override fun onCharacteristicReadCallback(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, payload: ByteArray, status: Int) {
         when (status) {
             BluetoothGatt.GATT_SUCCESS -> {
                 when(characteristic.uuid){
                     FLASHLIGHT_READ_LDR_CHAR_UUID -> {
-                        Log.i(TAG, "Read LDR: " + (payload[0] * 256 + payload[1]))
+                        Log.i(tag, "Read LDR: " + (payload[0] * 256 + payload[1]))
                     }
                 }
             }
@@ -110,38 +146,19 @@ class FlashlightManager(context: Context, activity: ComponentActivity, var view:
             (duty shr 8).toByte(), duty.toByte(),
             (timeout shr 24).toByte(), (timeout shr 16).toByte(), (timeout shr 8).toByte(), timeout.toByte()
         )
+        if(bluetoothGatt.getService(FLASHLIGHT_SERVICE_UUID) == null) {
+            Log.i(tag, "writePwmCharacteristic: Service not found")
+            return
+        }
         val writeChangePayloadCharacteristic = bluetoothGatt.getService(FLASHLIGHT_SERVICE_UUID).getCharacteristic(
             FLASHLIGHT_LED_PWM_CHAR_UUID
         )
         writeCharacteristic(writeChangePayloadCharacteristic, toSend)
     }
 
-    override fun startBleScan() : Boolean{
-        return if(super.startBleScan()) {
-            setConnectionStatus(LABEL_SEARCHING, null, null)
-            true
-        }
-        else{
-            setConnectionStatus("Permission required", null, null)
-            false
-        }
-    }
-
-    fun setConnectionStatus(status: String?, connected: Boolean?, rssi: Int?){
+    override fun onScanStatusUpdate(status: String) {
         runOnUiThread {
-            if (status != null)     view.connectionStatus.text = status
-//            when(connected){
-//                true -> view.connectionParams.text = params
-//            }
-//            if (rssi != null)       view.readValues.text = read
-            activity.setContentView(view.root)
+            binding.connectionStatus.text = status
         }
     }
-
-
-//    fun updateLdrValue(newVal: Int){
-//        runOnUiThread {
-//            view.ldrVal.text = newVal
-//        }
-//    }
 }

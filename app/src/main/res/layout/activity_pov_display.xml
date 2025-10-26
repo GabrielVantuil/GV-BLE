@@ -11,6 +11,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:padding="0dp">
 
         <Button
@@ -103,7 +104,8 @@
                             android:backgroundTint="#FFFFFF"
                             android:minWidth="0dp"
                             android:minHeight="0dp"
-                            android:text="@string/povDisplaySendText" />
+                            android:text="@string/povDisplaySendText"
+                            android:enabled="false" />
 
                     </LinearLayout>
 
@@ -298,23 +300,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_weight="1"
-                android:text="@string/powerMotorText" />
+                android:text="@string/powerMotorText"
+                android:enabled="false" />
 
             <Button
                 android:id="@+id/motorOffBt"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_weight="1"
-                android:text="@string/powerOffBtText" />
+                android:text="@string/powerOffBtText"
+                android:enabled="false" />
         </LinearLayout>
 
         <Button
             android:id="@+id/powerOffBt"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:layout_marginBottom="32dp"
             android:backgroundTint="#FF6600"
             android:text="@string/powerOffBtText"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:enabled="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

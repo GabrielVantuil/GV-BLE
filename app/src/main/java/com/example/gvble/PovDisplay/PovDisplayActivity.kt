@@ -14,14 +14,14 @@ import com.example.gvble.R
 import com.example.gvble.databinding.ActivityPovDisplayBinding
 
 @SuppressLint("ClickableViewAccessibility")
-class PovDisplayActivity(private var context: Context, var binding: ActivityPovDisplayBinding, private var main: ComponentActivity): ComponentActivity()  {
+class PovDisplayActivity(private var context: Context, var binding: ActivityPovDisplayBinding): ComponentActivity()  {
     private var povDisplay: PovDisplayManager
     lateinit var ledsRgbVal : ByteArray//(povDisplay.totalLeds*3)
     var r : Int = 255
     var g : Int = 255
     var b : Int = 255
     init{
-        povDisplay = PovDisplayManager(context, main, binding)
+        povDisplay = PovDisplayManager()
         povDisplay.startBleScan()
         setupModeSelectorListeners()
         setupTextModeListeners()

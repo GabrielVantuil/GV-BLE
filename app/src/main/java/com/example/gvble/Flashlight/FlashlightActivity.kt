@@ -12,7 +12,7 @@ import com.example.gvble.databinding.ActivityFlashlightBinding
 import java.util.Locale
 
 @SuppressLint("ClickableViewAccessibility")
-class FlashlightActivity(private var context: Context, var flashlightBinding: ActivityFlashlightBinding, private var main: ComponentActivity): ComponentActivity()  {
+class FlashlightActivity(var flashlightBinding: ActivityFlashlightBinding, var flashlight: FlashlightManager): ComponentActivity()  {
     private val TAG = "GVantuil"
     private val SAFE_PM: Int = 0
     private val PUSH_PM: Int = 1
@@ -24,15 +24,12 @@ class FlashlightActivity(private var context: Context, var flashlightBinding: Ac
     private val UPDATE_CONN_PARAMS_TIMER: Long = 100
     private val ONE_RPM: Float = 1F/60
 
-    private var flashlight: FlashlightManager
     private var powerMode: Int = 0
     private var frequency: Float = 60F
     private var freqIncrBtCounter: Int = 0
 
     init{
         Log.i("GV", "Flashlight")
-        flashlight = FlashlightManager(context, main, flashlightBinding)
-        flashlight.startBleScan()
 
         updateFrequency()
         flashlightBinding.pwmOn.setOnClickListener{
@@ -187,5 +184,6 @@ class FlashlightActivity(private var context: Context, var flashlightBinding: Ac
     override fun onResume() {
         super.onResume()
     }
+
 
 }

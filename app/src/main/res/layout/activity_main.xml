@@ -15,7 +15,7 @@
             android:id="@+id/flashlightAppBt"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="32dp"
             android:text="@string/flashlightAppBtText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
