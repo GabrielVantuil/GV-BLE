@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.example.gvble.Flashlight.FlashlightActivity
 import com.example.gvble.Flashlight.FlashlightManager
+import com.example.gvble.Motor.MotorManager
 import com.example.gvble.PovDisplay.PovDisplayManager
 import com.example.gvble.databinding.ActivityFlashlightBinding
 import com.example.gvble.databinding.ActivityMainBinding
@@ -27,6 +28,10 @@ class MainActivity : ComponentActivity() {
         }
         mainBinding.povAppBt.setOnClickListener{
             val intent = Intent(this, PovDisplayManager::class.java)
+            startActivity(intent)
+        }
+        mainBinding.motorAppBt.setOnClickListener{
+            val intent = Intent(this, MotorManager::class.java)
             startActivity(intent)
         }
     }

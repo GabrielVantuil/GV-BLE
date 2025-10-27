@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".Flashlight.FlashlightManager" />
         <activity android:name=".PovDisplay.PovDisplayManager" />
+        <activity android:name=".Motor.MotorManager" />
     </application>
 
 </manifest>

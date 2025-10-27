@@ -48,30 +48,31 @@ class FlashlightManager() : BtManager(){
         isConnected = true
     }
     private fun setBleButtonsEnabled(isEnabled: Boolean) {
-        runOnUiThread {
-            binding.pwmOn.isEnabled = isEnabled
-            binding.powerOffBt.isEnabled = isEnabled
-            binding.weakPowerOnBt.isEnabled = isEnabled
-            binding.mediumPowerOnBt.isEnabled = isEnabled
-            binding.fullPowerOnBt.isEnabled = isEnabled
-        }
+        binding.pwmOn.isEnabled = isEnabled
+        binding.powerOffBt.isEnabled = isEnabled
+        binding.weakPowerOnBt.isEnabled = isEnabled
+        binding.mediumPowerOnBt.isEnabled = isEnabled
+        binding.fullPowerOnBt.isEnabled = isEnabled
     }
 
     override fun onServicesDiscovered(gatt: BluetoothGatt) {
         Log.i(tag, "onServicesDiscovered _________________________")
-        setBleButtonsEnabled(true)
+        runOnUiThread {
+            setBleButtonsEnabled(true)
+        }
     }
     var shouldPowerOff: Boolean = false
     override fun onDisconnected(gatt: BluetoothGatt) {
         runOnUiThread {
             binding.connectionStatus.text = "Disconnected - Scanning"
+            setBleButtonsEnabled(false)
         }
-        setBleButtonsEnabled(false)
         isConnected = false
     }
     override fun onConnectionError(gatt: BluetoothGatt, status: Int) {
         runOnUiThread {
             binding.connectionStatus.text = "Scanning"
+            setBleButtonsEnabled(false)
         }
         isConnected = false
     }

@@ -85,18 +85,21 @@ class PovDisplayManager() : BtManager(){
     override fun onDisconnected(gatt: BluetoothGatt) {
         runOnUiThread {
             binding.connectionStatus.text = "Disconnected - Scanning"
+            setBleButtonsEnabled(false)
         }
-        setBleButtonsEnabled(false)
         isConnected = false
     }
     override fun onConnectionError(gatt: BluetoothGatt, status: Int) {
         runOnUiThread {
             binding.connectionStatus.text = "Scanning"
+            setBleButtonsEnabled(false)
         }
         isConnected = false
     }
     override fun onServicesDiscovered(gatt: BluetoothGatt) {
-        setBleButtonsEnabled(true)
+        runOnUiThread {
+            setBleButtonsEnabled(true)
+        }
     }
     override fun onCharacteristicReadCallback(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, payload: ByteArray, status: Int) {
         when (status) {

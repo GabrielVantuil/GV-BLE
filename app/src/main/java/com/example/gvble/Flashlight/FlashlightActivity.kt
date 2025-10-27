@@ -20,7 +20,7 @@ class FlashlightActivity(var flashlightBinding: ActivityFlashlightBinding, var f
 
     private val MEDIUM_POWER: Int = 70
 
-    private val POWER_TIMEOUT: Int = 1500
+    private val POWER_TIMEOUT: Int = 2500
     private val UPDATE_CONN_PARAMS_TIMER: Long = 100
     private val ONE_RPM: Float = 1F/60
 

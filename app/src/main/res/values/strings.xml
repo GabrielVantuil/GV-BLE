@@ -3,6 +3,7 @@
     <!--    Menu    -->
     <string name="flashlightAppBtText">Flashlight</string>
     <string name="povAppBtText">POV display</string>
+    <string name="motorAppBtText">Motor</string>
 
     <!--    Flashlight    -->
     <string name="powerModes">Safe mode</string>
@@ -31,5 +32,17 @@
         <item>Set single led mode</item>
         <item>Set all leds mode</item>
     </string-array>
+
+    <!--    Motor    -->
+    <string name="dutyCycleTextMinimal">(%)</string>
+    <string name="frequencyTextMinimal">(Hz)</string>
+    <string name="motorCwText">&gt;</string>
+    <string name="motorCcwText">&lt;</string>
+    <string name="motorStopText">||</string>
+    <string name="motorAText">MA</string>
+    <string name="motorBText">MB</string>
+    <string name="motorDutyStartVal">100</string>
+    <string name="motorFreqStartValue">1000</string>
+    <string name="motorsOffText">Motors off</string>
 
 </resources>
