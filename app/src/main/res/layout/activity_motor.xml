@@ -63,16 +63,82 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/motorAContainer"
+            android:id="@+id/freqContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/motorAContainer">
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintTop_toBottomOf="@+id/connection_status"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:id="@+id/freqLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/allMotorsText"
+                android:textAlignment="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/motorFreqTextBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:ems="1"
+                android:inputType="number|numberDecimal|numberSigned"
+                android:text="@string/motorFreqStartValue"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/timeoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/timeoutText"
+                android:textAlignment="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/motorTimeoutTextBox"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:ems="1"
+                android:inputType="number|numberDecimal|numberSigned"
+                android:text="@string/motorTimeoutStartValue"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/motorAContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout0">
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/MA_dutyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -88,7 +154,6 @@
                     android:id="@+id/motorALabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:text="@string/motorAText"
                     android:textAlignment="center"
@@ -110,7 +175,6 @@
                     android:id="@+id/dutyCycleATextBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="50dp"
                     android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:ems="1"
@@ -120,35 +184,19 @@
                     android:textAlignment="center"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/motorAFreqLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:text="@string/frequencyTextMinimal"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/textColorLight"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/frequencyATextBox"
-                    android:layout_width="80dp"
+                <SeekBar
+                    android:id="@+id/MAdutySel"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:ems="1"
-                    android:inputType="number|numberDecimal|numberSigned"
-                    android:text="@string/motorFreqStartValue"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:progress="100" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/MA_dutyLayout"
                 tools:layout_editor_absoluteX="378dp">
 
                 <Button
@@ -156,37 +204,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:text="@string/motorCcwText"
-                    android:textSize="16sp"
-                    android:enabled="false"/>
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/motorAStop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/motorStopText"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:text="@string/motorStopText" />
 
                 <Button
                     android:id="@+id/motorACw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/motorCwText"
-                    android:enabled="false" />
+                    android:enabled="false"
+                    android:text="@string/motorCwText" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/motorBContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="15dp"
+            tools:layout_editor_absoluteY="278dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/motorAContainer">
 
             <LinearLayout
-                android:id="@+id/linearLayout4"
+                android:id="@+id/MB_dutyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -202,7 +253,6 @@
                     android:id="@+id/motorBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:text="@string/motorBText"
                     android:textAlignment="center"
@@ -224,7 +274,6 @@
                     android:id="@+id/dutyCycleBTextBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="50dp"
                     android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:ems="1"
@@ -234,35 +283,20 @@
                     android:textAlignment="center"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/motorBFreqLabel"
-                    android:layout_width="wrap_content"
+                <SeekBar
+                    android:id="@+id/MBdutySel"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/frequencyTextMinimal"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/textColorLight"
-                    android:textSize="16sp" />
+                    android:progress="100" />
 
-                <EditText
-                    android:id="@+id/frequencyBTextBox"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:ems="1"
-                    android:inputType="number|numberDecimal|numberSigned"
-                    android:text="@string/motorFreqStartValue"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/MB_dutyLayout"
                 tools:layout_editor_absoluteX="378dp">
 
                 <Button
@@ -270,25 +304,125 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:text="@string/motorCcwText"
-                    android:textSize="16sp"
-                    android:enabled="false" />
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/motorBStop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/motorStopText"
-                    android:enabled="false" />
+                    android:enabled="false"
+                    android:text="@string/motorStopText" />
 
                 <Button
                     android:id="@+id/motorBCw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/motorCwText"
-                    android:enabled="false" />
+                    android:enabled="false"
+                    android:text="@string/motorCwText" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/motorCContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            tools:layout_editor_absoluteY="278dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/motorBContainer">
+
+            <LinearLayout
+                android:id="@+id/MC_dutyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                app:flow_horizontalAlign="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/motorCLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/motorCText"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/motorCDutyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/dutyCycleTextMinimal"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/dutyCycleCTextBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:ems="1"
+                    android:inputType="number|numberDecimal|numberSigned"
+                    android:maxLength="3"
+                    android:text="@string/motorDutyStartVal"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <SeekBar
+                    android:id="@+id/MCdutySel"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:progress="100" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/MC_dutyLayout"
+                tools:layout_editor_absoluteX="378dp">
+
+                <Button
+                    android:id="@+id/motorCCcw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/motorCcwText"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/motorCStop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/motorStopText" />
+
+                <Button
+                    android:id="@+id/motorCCw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/motorCwText" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

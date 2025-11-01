@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/MA_dutyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/MA_dutyLayout"
                 tools:layout_editor_absoluteX="378dp">
 
                 <Button

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gvLight"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="0dp">
+
+        <Button
+            android:id="@+id/connection_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/gvDark"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFF"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:hapticFeedbackEnabled="true"
+            tools:visibility="visible" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/tankDutyLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/tankNW"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="@string/arrowNW"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankN"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowN"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankNE"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowNE"
+                        android:textSize="32sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/tankW"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowW"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankStop"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/tankStop"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankE"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowE"
+                        android:textSize="32sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/tankSW"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowSW"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankS"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowS"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankSE"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowSE"
+                        android:textSize="32sp" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tankDutyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintBottom_toTopOf="@+id/tankMCDutyLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <TextView
+                android:id="@+id/tankDutyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tankDutyText"
+                android:textAlignment="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tankDutyLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="@string/dutyCycleTextMinimal"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tankDutyTextBox"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:ems="1"
+                android:inputType="number|numberDecimal|numberSigned"
+                android:maxLength="3"
+                android:text="@string/motorDutyStartVal"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <SeekBar
+                android:id="@+id/tankDutySel"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:progress="100"
+                android:max="100"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tankMCDutyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tankDutyLayout">
+
+            <TextView
+                android:id="@+id/tankCLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/motorCText"
+                android:textAlignment="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tankCDutyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="@string/dutyCycleTextMinimal"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tankDutyCTextBox"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:ems="1"
+                android:inputType="number|numberDecimal|numberSigned"
+                android:maxLength="4"
+                android:text="@string/tankMCDutyStartVal"
+                android:textAlignment="center"
+                android:textSize="16sp"/>
+
+            <SeekBar
+                android:id="@+id/tankMCdutySel"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="200"
+                android:progress="100"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ProgressBar
+                android:id="@+id/powerOffProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:indeterminateTintMode="screen"
+                android:progress="0"
+                android:progressBackgroundTint="#00FFFFFF"
+                android:progressTint="@color/powerOffButton"
+                android:scaleY="3"
+                app:layout_constraintBottom_toTopOf="@+id/powerOffBt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/powerOffBt"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:backgroundTint="@color/powerOffButton"
+                android:enabled="false"
+                android:text="@string/powerOffText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="0dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

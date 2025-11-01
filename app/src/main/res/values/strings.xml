@@ -4,6 +4,9 @@
     <string name="flashlightAppBtText">Flashlight</string>
     <string name="povAppBtText">POV display</string>
     <string name="motorAppBtText">Motor</string>
+    <string name="tankAppBtText">Tank</string>
+
+    <string name="menuDistanceBetweenButtons">20dp</string>
 
     <!--    Flashlight    -->
     <string name="powerModes">Safe mode</string>
@@ -41,8 +44,28 @@
     <string name="motorStopText">||</string>
     <string name="motorAText">MA</string>
     <string name="motorBText">MB</string>
+    <string name="motorCText">MC</string>
+    <string name="allMotorsText">Freq (Hz)</string>
+    <string name="timeoutText">Timeout (ms)</string>
     <string name="motorDutyStartVal">100</string>
     <string name="motorFreqStartValue">1000</string>
+    <string name="motorTimeoutStartValue">0</string>
     <string name="motorsOffText">Motors off</string>
+
+    <!--    Tank    -->
+    <string name="tankDutyText">MA=MB</string>
+    <string name="powerOffText">Power off</string>
+    <string name="tankMCDutyStartVal">0</string>
+
+    <string name="arrowN" >↑</string>
+    <string name="arrowE" >↻</string>
+    <string name="arrowS" >↓</string>
+    <string name="arrowW" >↺</string>
+    <string name="arrowNE">↗</string>
+    <string name="arrowSE">↘</string>
+    <string name="arrowSW">↙</string>
+    <string name="arrowNW">↖</string>
+    <string name="tankStop">⚬</string>
+
 
 </resources>

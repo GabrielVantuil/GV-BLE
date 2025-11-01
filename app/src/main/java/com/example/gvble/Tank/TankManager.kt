@@ -1,4 +1,4 @@
-package com.example.gvble.Motor
+package com.example.gvble.Tank
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGatt
@@ -8,26 +8,27 @@ import android.os.Bundle
 import android.os.ParcelUuid
 import android.util.Log
 import com.example.gvble.BtManager
-import com.example.gvble.MOTOR_SERVICE_UUID
-import com.example.gvble.MOTOR_SET_MOTOR_CHAR_UUID
-import com.example.gvble.databinding.ActivityMotorBinding
+import com.example.gvble.TANK_SERVICE_UUID
+import com.example.gvble.TANK_SET_CONFIG_CHAR_UUID
+import com.example.gvble.TANK_SET_MOTOR_CHAR_UUID
+import com.example.gvble.databinding.ActivityTankBinding
 
 
 @SuppressLint("MissingPermission", "ClickableViewAccessibility")
-class MotorManager() : BtManager(){
-    private lateinit var binding: ActivityMotorBinding
+class TankManager() : BtManager(){
+    private lateinit var binding: ActivityTankBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMotorBinding.inflate(layoutInflater)
+        binding = ActivityTankBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        MotorActivity(binding, this)
+        TankActivity(binding, this)
         startBleScan()
 
     }
 
     override var filters: ArrayList<ScanFilter> = arrayListOf(
-        ScanFilter.Builder().setServiceUuid(ParcelUuid(MOTOR_SERVICE_UUID)).build())
+        ScanFilter.Builder().setServiceUuid(ParcelUuid(TANK_SERVICE_UUID)).build())
 
     override fun onConnected(gatt: BluetoothGatt) {
         runOnUiThread {
@@ -37,16 +38,17 @@ class MotorManager() : BtManager(){
         bluetoothGatt.discoverServices()
         isConnected = true
     }
-    private fun setBleButtonsEnabled(isEnabled: Boolean) {
-        binding.motorACw.isEnabled = isEnabled
-        binding.motorACcw.isEnabled = isEnabled
-        binding.motorAStop.isEnabled = isEnabled
-        binding.motorBCw.isEnabled = isEnabled
-        binding.motorBCcw.isEnabled = isEnabled
-        binding.motorBStop.isEnabled = isEnabled
-        binding.motorCCw.isEnabled = isEnabled
-        binding.motorCCcw.isEnabled = isEnabled
-        binding.motorCStop.isEnabled = isEnabled
+
+    fun setBleButtonsEnabled(isEnabled: Boolean) {
+        binding.tankN.isEnabled = isEnabled
+        binding.tankE.isEnabled = isEnabled
+        binding.tankS.isEnabled = isEnabled
+        binding.tankW.isEnabled = isEnabled
+        binding.tankNE.isEnabled = isEnabled
+        binding.tankSE.isEnabled = isEnabled
+        binding.tankSW.isEnabled = isEnabled
+        binding.tankNW.isEnabled = isEnabled
+        binding.tankStop.isEnabled = isEnabled
         binding.powerOffBt.isEnabled = isEnabled
     }
 
@@ -80,8 +82,21 @@ class MotorManager() : BtManager(){
             (motorC shr 8).toByte(), motorC.toByte(),
             (timeout shr 24).toByte(), (timeout shr 16).toByte(), (timeout shr 8).toByte(), timeout.toByte()
         )
-        val writeChangePayloadCharacteristic = bluetoothGatt.getService(MOTOR_SERVICE_UUID)
-            .getCharacteristic(MOTOR_SET_MOTOR_CHAR_UUID)
+        val writeChangePayloadCharacteristic = bluetoothGatt.getService(TANK_SERVICE_UUID)
+            .getCharacteristic(TANK_SET_MOTOR_CHAR_UUID)
+        writeCharacteristic(writeChangePayloadCharacteristic, toSend)
+    }
+    fun writeConfigCharacteristic(powerOff: Boolean = false){
+        if(!isConnected)    return
+        val toSend =  byteArrayOf(
+            0.toByte(), 0.toByte(), //LED duty
+            0.toByte(), 0.toByte(), //P
+            0.toByte(), 0.toByte(), //I
+            0.toByte(), 0.toByte(), //D
+            if(powerOff) 1.toByte() else 0.toByte(),
+        )
+        val writeChangePayloadCharacteristic = bluetoothGatt.getService(TANK_SERVICE_UUID)
+            .getCharacteristic(TANK_SET_CONFIG_CHAR_UUID)
         writeCharacteristic(writeChangePayloadCharacteristic, toSend)
     }
 

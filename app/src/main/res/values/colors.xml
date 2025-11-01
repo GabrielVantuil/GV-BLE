@@ -10,4 +10,7 @@
     <color name="gvDark">#FF000000</color>
     <color name="gvLight">#FF530505</color>
     <color name="textColorLight">#FFFFFF</color>
+
+    <color name="powerOffButton">#FF6600</color>
+    <color name="powerOffEnabledButton">#308000</color>
 </resources>
