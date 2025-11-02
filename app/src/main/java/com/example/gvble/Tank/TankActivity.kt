@@ -13,21 +13,28 @@ import java.util.Locale
 @SuppressLint("ClickableViewAccessibility")
 class TankActivity(var tankBinding: ActivityTankBinding, var tank: TankManager): ComponentActivity()  {
     val noChange = 0x7F00
+    val NCF = 99F   //no change float
 
     init{
         Log.i("GV", "Tank")
         setupDutySelectorsListeners()
         //https://www.toptal.com/designers/htmlarrows/arrows/
         tankBinding.tankN.setOnClickListener    {tankCtrlOnButton(1F, 1F)}      //↑
-        tankBinding.tankE.setOnClickListener    {tankCtrlOnButton(1F, -1F)}     //→ ↻
+        tankBinding.tankE.setOnClickListener    {tankCtrlOnButton(0.5F, -0.5F)} //→ ↻
         tankBinding.tankS.setOnClickListener    {tankCtrlOnButton(-1F, -1F)}    //↓
-        tankBinding.tankW.setOnClickListener    {tankCtrlOnButton(-1F, 1F)}     //← ↺
+        tankBinding.tankW.setOnClickListener    {tankCtrlOnButton(-0.5F, 0.5F)} //← ↺
         tankBinding.tankNE.setOnClickListener   {tankCtrlOnButton(1F, 0.5F)}    //↗
         tankBinding.tankSE.setOnClickListener   {tankCtrlOnButton(-1F, -0.5F)}  //↘
         tankBinding.tankSW.setOnClickListener   {tankCtrlOnButton(-0.5F, -1F)}  //↙
         tankBinding.tankNW.setOnClickListener   {tankCtrlOnButton(0.5F, 1F)}    //↖
         tankBinding.tankStop.setOnClickListener {tankCtrlOnButton(0F, 0F)}      //⚬
 
+        tankBinding.tankNMA.setOnClickListener    {tankCtrlOnButton( 1F, NCF)}  //MA↑
+        tankBinding.tankStopMA.setOnClickListener {tankCtrlOnButton( 0F, NCF)}  //MA⚬
+        tankBinding.tankSMA.setOnClickListener    {tankCtrlOnButton(-1F, NCF)}  //MA↓
+        tankBinding.tankNMB.setOnClickListener    {tankCtrlOnButton(NCF, 1F)}   //MB↑
+        tankBinding.tankStopMB.setOnClickListener {tankCtrlOnButton(NCF, 0F)}   //MB⚬
+        tankBinding.tankSMB.setOnClickListener    {tankCtrlOnButton(NCF, -1F)}  //MB↓
 
         //Power off
         tankBinding.powerOffBt.setOnTouchListener { _, event ->
@@ -45,10 +52,9 @@ class TankActivity(var tankBinding: ActivityTankBinding, var tank: TankManager):
             }
             false
         }
-
     }
 
-    private val powerOffCountDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, 25) {
+    private val powerOffCountDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, 10) {
         override fun onTick(l: Long) {
             tankBinding.powerOffProgressBar.progress++
         }
@@ -56,13 +62,15 @@ class TankActivity(var tankBinding: ActivityTankBinding, var tank: TankManager):
         }
     }
     fun tankCtrlOnButton(mA : Float, mB : Float){
-        val duty = tankBinding.tankDutyTextBox.text.toString().toInt()*100
-        tank.writeMotorCharacteristic((duty*mA).toInt(), (duty*mB).toInt(), noChange)
+        val duty = tankBinding.tankDutySel.progress
+        if(mA == NCF)   tank.writeMotorCharacteristic(noChange, (duty*mB).toInt(), noChange)
+        else if(mB == NCF) tank.writeMotorCharacteristic((duty*mA).toInt(), noChange, noChange)
+        else tank.writeMotorCharacteristic((duty*mA).toInt(), (duty*mB).toInt(), noChange)
     }
     private fun setupDutySelectorsListeners() {
         val onSeekBarChange = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                updateDutyCicles()
+                updateMovementDutyCicles()
             }
             override fun onStartTrackingTouch(seekBar: SeekBar){}
             override fun onStopTrackingTouch(seekBar: SeekBar){}
@@ -71,25 +79,26 @@ class TankActivity(var tankBinding: ActivityTankBinding, var tank: TankManager):
 
         val onMCDutySelChange = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                updateDutyCicles()
-                val duty = tankBinding.tankDutyCTextBox.text.toString().toInt()*100
-                tank.writeMotorCharacteristic(noChange, noChange, duty)
+                updateMCDutyCicle()
             }
             override fun onStartTrackingTouch(seekBar: SeekBar){}
             override fun onStopTrackingTouch(seekBar: SeekBar){
-                val duty = tankBinding.tankDutyCTextBox.text.toString().toInt()*100
-                tank.writeMotorCharacteristic(noChange, noChange, duty)
+                updateMCDutyCicle()
             }
         }
         tankBinding.tankMCdutySel.setOnSeekBarChangeListener(onMCDutySelChange)
     }
-
-    private fun updateDutyCicles(){
-        val tankDuty = tankBinding.tankDutySel.progress
-        val mC = tankBinding.tankMCdutySel.progress - 100
-        tankBinding.tankDutyTextBox.setText("$tankDuty")
-        tankBinding.tankDutyCTextBox.setText("$mC")
-
+    private fun updateMCDutyCicle(){
+        var mC = tankBinding.tankMCdutySel.progress
+        mC = if(tankBinding.tankMCdutyCheckBox.isChecked) -mC else mC
+        val text = (mC/100).toString() + "%"
+        tankBinding.tankCDutyPercentage.text = text
+        tank.writeMotorCharacteristic(noChange, noChange, mC)
+    }
+    private fun updateMovementDutyCicles(){
+        val duty = tankBinding.tankDutySel.progress
+        val text = (duty/100).toString() + "%"
+        tankBinding.tankDutyPercentage.text = text
     }
     override fun onResume() {
         super.onResume()

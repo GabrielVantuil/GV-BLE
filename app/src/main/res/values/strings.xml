@@ -56,6 +56,9 @@
     <string name="tankDutyText">MA=MB</string>
     <string name="powerOffText">Power off</string>
     <string name="tankMCDutyStartVal">0</string>
+    <string name="tankMCDutyCheckBox">INV</string>
+    <string name="tankMovementDutyTextMin">100%</string>
+    <string name="tankMovementMCDutyTextMin">0%</string>
 
     <string name="arrowN" >↑</string>
     <string name="arrowE" >↻</string>

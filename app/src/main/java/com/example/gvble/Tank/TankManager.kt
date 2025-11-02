@@ -50,6 +50,12 @@ class TankManager() : BtManager(){
         binding.tankNW.isEnabled = isEnabled
         binding.tankStop.isEnabled = isEnabled
         binding.powerOffBt.isEnabled = isEnabled
+        binding.tankNMA.isEnabled = isEnabled
+        binding.tankStopMA.isEnabled = isEnabled
+        binding.tankSMA.isEnabled = isEnabled
+        binding.tankNMB.isEnabled = isEnabled
+        binding.tankStopMB.isEnabled = isEnabled
+        binding.tankSMB.isEnabled = isEnabled
     }
 
     override fun onServicesDiscovered(gatt: BluetoothGatt) {

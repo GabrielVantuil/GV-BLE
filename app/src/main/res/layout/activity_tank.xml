@@ -51,12 +51,22 @@
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp">
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="30dp">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center">
+
+                    <Button
+                        android:id="@+id/tankNMA"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowN"
+                        android:textSize="32sp" />
 
                     <Button
                         android:id="@+id/tankNW"
@@ -86,12 +96,30 @@
                         android:text="@string/arrowNE"
                         android:textSize="32sp" />
 
+                    <Button
+                        android:id="@+id/tankNMB"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowN"
+                        android:textSize="32sp" />
+
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center">
+
+                    <Button
+                        android:id="@+id/tankStopMA"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/motorAText"
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/tankW"
@@ -120,12 +148,30 @@
                         android:text="@string/arrowE"
                         android:textSize="32sp" />
 
+                    <Button
+                        android:id="@+id/tankStopMB"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/motorBText"
+                        android:textSize="16sp" />
+
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center">
+
+                    <Button
+                        android:id="@+id/tankSMA"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowS"
+                        android:textSize="32sp" />
 
                     <Button
                         android:id="@+id/tankSW"
@@ -152,6 +198,15 @@
                         android:layout_weight="1"
                         android:enabled="false"
                         android:text="@string/arrowSE"
+                        android:textSize="32sp" />
+
+                    <Button
+                        android:id="@+id/tankSMB"
+                        android:layout_width="@dimen/tankButtonSize"
+                        android:layout_height="@dimen/tankButtonSize"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/arrowS"
                         android:textSize="32sp" />
                 </TableRow>
 
@@ -185,27 +240,14 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tankDutyLabel2"
+                android:id="@+id/tankDutyPercentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="@string/dutyCycleTextMinimal"
+                android:text="@string/tankMovementDutyTextMin"
                 android:textAlignment="textEnd"
                 android:textColor="@color/textColorLight"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/tankDutyTextBox"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:ems="1"
-                android:inputType="number|numberDecimal|numberSigned"
-                android:maxLength="3"
-                android:text="@string/motorDutyStartVal"
-                android:textAlignment="center"
                 android:textSize="16sp" />
 
             <SeekBar
@@ -213,8 +255,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:progress="100"
-                android:max="100"/>
+                android:max="10000"
+                android:progress="10000" />
 
         </LinearLayout>
 
@@ -243,36 +285,32 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tankCDutyLabel"
+                android:id="@+id/tankCDutyPercentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="@string/dutyCycleTextMinimal"
+                android:text="@string/tankMovementMCDutyTextMin"
                 android:textAlignment="textEnd"
                 android:textColor="@color/textColorLight"
                 android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/tankDutyCTextBox"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:ems="1"
-                android:inputType="number|numberDecimal|numberSigned"
-                android:maxLength="4"
-                android:text="@string/tankMCDutyStartVal"
-                android:textAlignment="center"
-                android:textSize="16sp"/>
 
             <SeekBar
                 android:id="@+id/tankMCdutySel"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:max="200"
-                android:progress="100"/>
+                android:max="10000"
+                android:progress="0" />
+
+            <CheckBox
+                android:id="@+id/tankMCdutyCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#FFFFFF"
+                android:text="@string/tankMCDutyCheckBox"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColorLight" />
 
         </LinearLayout>
 
@@ -289,6 +327,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:indeterminateTintMode="screen"
+                android:max="100"
                 android:progress="0"
                 android:progressBackgroundTint="#00FFFFFF"
                 android:progressTint="@color/powerOffButton"
