@@ -55,6 +55,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/motorAppBt" />
 
+        <Button
+            android:id="@+id/windowAppBt"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/menuDistanceBetweenButtons"
+            android:text="@string/windowAppBtText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tankAppBt" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

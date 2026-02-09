@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.le.ScanFilter
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.ParcelUuid
@@ -16,7 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import androidx.core.widget.doAfterTextChanged
 import com.example.gvble.BtManager
-import com.example.gvble.FLASHLIGHT_READ_LDR_CHAR_UUID
+import com.example.gvble.FLASHLIGHT_READ_INFO_CHAR_UUID
 import com.example.gvble.POV_DISPLAY_MODE_CHAR_UUID
 import com.example.gvble.POV_DISPLAY_SERVICE_UUID
 import com.example.gvble.POV_DISPLAY_SET_LEDS_CHAR_UUID
@@ -105,7 +104,7 @@ class PovDisplayManager() : BtManager(){
         when (status) {
             BluetoothGatt.GATT_SUCCESS -> {
                 when(characteristic.uuid){
-                    FLASHLIGHT_READ_LDR_CHAR_UUID -> {
+                    FLASHLIGHT_READ_INFO_CHAR_UUID -> {
                         Log.i(tag, "Read LDR: " + (payload[0] * 256 + payload[1]))
                     }
                 }

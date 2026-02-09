@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gvLight"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="0dp">
+
+        <Button
+            android:id="@+id/connection_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/gvDark"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFF"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:hapticFeedbackEnabled="true"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/connection_status"
+            app:layout_constraintVertical_bias="0.0">
+
+<!--            <Spinner-->
+<!--                android:id="@+id/modeSpinner2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="#FFFFFF"-->
+<!--                android:scrollbarSize="10dp"-->
+<!--                android:spinnerMode="dropdown" />-->
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/freqContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/motorAContainer">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintTop_toBottomOf="@+id/connection_status"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:id="@+id/timeoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/windowTimeoutText"
+                android:textAlignment="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/windowTimeoutTextBox"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:ems="1"
+                android:hint="@string/windowExecTimeHint"
+                android:inputType="datetime|time"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/motorAContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout0">
+            <LinearLayout
+                android:id="@+id/windowDutyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                app:flow_horizontalAlign="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/windowPwmLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/windowPwmText"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/windowDutyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/dutyCycleTextMinimal"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/dutyCycleTextBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:ems="1"
+                    android:inputType="number|numberDecimal|numberSigned"
+                    android:maxLength="3"
+                    android:text="@string/motorDutyStartVal"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <SeekBar
+                    android:id="@+id/windowDutySel"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:progress="100" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/windowDutyLayout"
+                tools:layout_editor_absoluteX="378dp">
+
+
+                <TextView
+                    android:id="@+id/windowLastCmd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/windowLastCmdText"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/windowOpenBt"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:enabled="false"
+                    android:text="@string/windowOpenText"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/windowCloseBt"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:enabled="false"
+                    android:text="@string/windowCloseText"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/windowOpenBt" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/powerOffBt"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="#FF6600"
+            android:enabled="false"
+            android:text="@string/motorsOffText"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

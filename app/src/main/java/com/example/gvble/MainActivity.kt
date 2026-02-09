@@ -7,6 +7,7 @@ import com.example.gvble.Flashlight.FlashlightManager
 import com.example.gvble.Motor.MotorManager
 import com.example.gvble.PovDisplay.PovDisplayManager
 import com.example.gvble.Tank.TankManager
+import com.example.gvble.Window.WindowManager
 import com.example.gvble.databinding.ActivityMainBinding
 
 
@@ -32,6 +33,10 @@ class MainActivity : ComponentActivity() {
         }
         mainBinding.tankAppBt.setOnClickListener{
             val intent = Intent(this, TankManager::class.java)
+            startActivity(intent)
+        }
+        mainBinding.windowAppBt.setOnClickListener{
+            val intent = Intent(this, WindowManager::class.java)
             startActivity(intent)
         }
     }

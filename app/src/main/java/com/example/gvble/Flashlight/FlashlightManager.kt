@@ -4,24 +4,19 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.le.ScanFilter
-import android.content.Context
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.ParcelUuid
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.MotionEvent
-import androidx.activity.ComponentActivity
 import com.example.gvble.BtManager
 import com.example.gvble.FLASHLIGHT_LED_POWER_CHAR_UUID
 import com.example.gvble.FLASHLIGHT_LED_PWM_CHAR_UUID
 import com.example.gvble.FLASHLIGHT_LOCK_CHAR_UUID
-import com.example.gvble.FLASHLIGHT_READ_LDR_CHAR_UUID
+import com.example.gvble.FLASHLIGHT_READ_INFO_CHAR_UUID
 import com.example.gvble.FLASHLIGHT_SERVICE_UUID
 import com.example.gvble.databinding.ActivityFlashlightBinding
-import java.util.Locale
 
+
+private lateinit var flashlightActivity: FlashlightActivity
 
 @SuppressLint("MissingPermission", "ClickableViewAccessibility")
 class FlashlightManager() : BtManager(){
@@ -31,7 +26,7 @@ class FlashlightManager() : BtManager(){
         super.onCreate(savedInstanceState)
         binding = ActivityFlashlightBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FlashlightActivity(binding, this)
+        flashlightActivity = FlashlightActivity(binding, this)
         startBleScan()
 
     }
@@ -80,8 +75,11 @@ class FlashlightManager() : BtManager(){
         when (status) {
             BluetoothGatt.GATT_SUCCESS -> {
                 when(characteristic.uuid){
-                    FLASHLIGHT_READ_LDR_CHAR_UUID -> {
-                        Log.i(tag, "Read LDR: " + (payload[0] * 256 + payload[1]))
+                    FLASHLIGHT_READ_INFO_CHAR_UUID -> {
+                        val bat = payload[0].toUByte().toInt()
+                        val ldr = payload[1].toUByte().toInt()
+                        Log.i(tag, "bat " + bat + "  LDR: " + ldr)
+                        flashlightActivity.updateDeviceInfo("bat " + bat + "  LDR: " + ldr)
                     }
                 }
             }
@@ -115,10 +113,10 @@ class FlashlightManager() : BtManager(){
             }
         }
     }
-    private fun readLdrCharacteristic(){
-        if(!isConnected)    return
+    fun readLdrCharacteristic(){
+        if(!isConnected || bluetoothGatt.getService(FLASHLIGHT_SERVICE_UUID) == null)    return
         val getPayloadCharacteristic = bluetoothGatt.getService(FLASHLIGHT_SERVICE_UUID).getCharacteristic(
-            FLASHLIGHT_READ_LDR_CHAR_UUID
+            FLASHLIGHT_READ_INFO_CHAR_UUID
         )
         bluetoothGatt.readCharacteristic(getPayloadCharacteristic)
     }

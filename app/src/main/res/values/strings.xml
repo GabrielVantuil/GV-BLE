@@ -5,6 +5,7 @@
     <string name="povAppBtText">POV display</string>
     <string name="motorAppBtText">Motor</string>
     <string name="tankAppBtText">Tank</string>
+    <string name="windowAppBtText">Window</string>
 
     <string name="menuDistanceBetweenButtons">20dp</string>
 
@@ -70,5 +71,12 @@
     <string name="arrowNW">↖</string>
     <string name="tankStop">⚬</string>
 
+    <!--    Window    -->
+    <string name="windowOpenText">Open</string>
+    <string name="windowCloseText">Close</string>
+    <string name="windowPwmText">PWM</string>
+    <string name="windowTimeoutText">Timeout </string>
+    <string name="windowLastCmdText"> </string>
+    <string name="windowExecTimeHint">Execute at</string>
 
 </resources>

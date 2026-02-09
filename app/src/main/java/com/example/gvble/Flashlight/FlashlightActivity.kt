@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.activity.ComponentActivity
 import com.example.gvble.databinding.ActivityFlashlightBinding
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 @SuppressLint("ClickableViewAccessibility")
@@ -28,8 +30,18 @@ class FlashlightActivity(var flashlightBinding: ActivityFlashlightBinding, var f
     private var frequency: Float = 60F
     private var freqIncrBtCounter: Int = 0
 
+    var x =0
     init{
         Log.i("GV", "Flashlight")
+
+        val timer = object : CountDownTimer(Long.MAX_VALUE, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                flashlight.readLdrCharacteristic()
+            }
+            override fun onFinish() {}
+        }
+
+        timer.start() // Start the countdown
 
         updateFrequency()
         flashlightBinding.pwmOn.setOnClickListener{
@@ -107,6 +119,9 @@ class FlashlightActivity(var flashlightBinding: ActivityFlashlightBinding, var f
             }
             true
         }
+    }
+    fun updateDeviceInfo(value: String){
+        flashlightBinding.deviceInfo.text = value
     }
     private fun updateFrequency(sendToDevice: Boolean = false){
         val text = "%.3f".format(Locale.ROOT, frequency) + "Hz (" + (frequency * 60).toInt() +"rpm)"
