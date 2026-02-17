@@ -83,7 +83,7 @@ class WindowActivity(var windowBinding: ActivityWindowBinding, var motor: Window
         if(windowBinding.windowTimeoutTextBox.text.toString().isNotEmpty()) {
             return runCatching {
                 val targetText = windowBinding.windowTimeoutTextBox.text.toString()
-                val target = LocalTime.parse(targetText, DateTimeFormatter.ofPattern("HH:mm"))
+                val target = LocalTime.parse(targetText, DateTimeFormatter.ofPattern("H:mm"))
 
                 var timeUntil = Duration.between(LocalTime.now(), target)
                 if (timeUntil.isNegative || timeUntil.isZero)   timeUntil = timeUntil.plusDays(1)

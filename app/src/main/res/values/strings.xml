@@ -6,6 +6,7 @@
     <string name="motorAppBtText">Motor</string>
     <string name="tankAppBtText">Tank</string>
     <string name="windowAppBtText">Window</string>
+    <string name="taserAppBtText">Taser</string>
 
     <string name="menuDistanceBetweenButtons">20dp</string>
 
@@ -78,5 +79,9 @@
     <string name="windowTimeoutText">Timeout </string>
     <string name="windowLastCmdText"> </string>
     <string name="windowExecTimeHint">Execute at</string>
+
+    <!--    Taser   -->
+    <string name="onText">ON</string>
+    <string name="offText">OFF</string>
 
 </resources>

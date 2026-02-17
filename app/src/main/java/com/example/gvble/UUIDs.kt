@@ -7,6 +7,7 @@ const val FLASHLIGHT_UUID_BASE = "0000"
 const val POV_DISPLAY_UUID_BASE = "0001"
 const val MOTOR_UUID_BASE = "0002"
 const val TANK_UUID_BASE = "0003"
+const val TASER_UUID_BASE = "0004"
 
 val FLASHLIGHT_SERVICE_UUID: UUID =                UUID.fromString(FLASHLIGHT_UUID_BASE + "0000-" + UUID_BASE)
 val FLASHLIGHT_LOCK_CHAR_UUID: UUID =              UUID.fromString(FLASHLIGHT_UUID_BASE + "0001-" + UUID_BASE)
@@ -21,7 +22,6 @@ val POV_DISPLAY_MODE_CHAR_UUID: UUID =              UUID.fromString(POV_DISPLAY_
 val POV_DISPLAY_SET_TEXT_CHAR_UUID: UUID =          UUID.fromString(POV_DISPLAY_UUID_BASE + "0004-" + UUID_BASE)
 val POV_DISPLAY_SET_LEDS_CHAR_UUID: UUID =          UUID.fromString(POV_DISPLAY_UUID_BASE + "0005-" + UUID_BASE)
 
-
 val MOTOR_SERVICE_UUID: UUID =                      UUID.fromString(MOTOR_UUID_BASE + "0000-" + UUID_BASE)
 val MOTOR_SET_MOTOR_CHAR_UUID: UUID =               UUID.fromString(MOTOR_UUID_BASE + "0001-" + UUID_BASE)
 val MOTOR_SET_CONFIG_CHAR_UUID: UUID =              UUID.fromString(MOTOR_UUID_BASE + "0002-" + UUID_BASE)
@@ -31,3 +31,7 @@ val TANK_SERVICE_UUID: UUID =                       UUID.fromString(TANK_UUID_BA
 val TANK_SET_MOTOR_CHAR_UUID: UUID =                 UUID.fromString(TANK_UUID_BASE + "0001-" + UUID_BASE)
 val TANK_SET_CONFIG_CHAR_UUID: UUID =               UUID.fromString(TANK_UUID_BASE + "0002-" + UUID_BASE)
 val TANK_GET_INFO_CHAR_UUID: UUID =                 UUID.fromString(TANK_UUID_BASE + "0003-" + UUID_BASE)
+
+val TASER_SERVICE_UUID: UUID =                      UUID.fromString(TASER_UUID_BASE + "0000-" + UUID_BASE)
+val TASER_SET_TASER_CHAR_UUID: UUID =               UUID.fromString(TASER_UUID_BASE + "0001-" + UUID_BASE)
+val TASER_GET_INFO_CHAR_UUID: UUID =                UUID.fromString(TASER_UUID_BASE + "0003-" + UUID_BASE)

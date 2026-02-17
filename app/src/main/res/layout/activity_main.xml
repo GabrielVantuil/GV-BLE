@@ -56,6 +56,17 @@
             app:layout_constraintTop_toBottomOf="@+id/motorAppBt" />
 
         <Button
+            android:id="@+id/taserAppBt"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/menuDistanceBetweenButtons"
+            android:text="@string/taserAppBtText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tankAppBt" />
+
+        <Button
             android:id="@+id/windowAppBt"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -64,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tankAppBt" />
+            app:layout_constraintTop_toBottomOf="@+id/taserAppBt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
