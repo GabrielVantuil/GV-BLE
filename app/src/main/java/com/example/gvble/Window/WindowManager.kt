@@ -41,6 +41,8 @@ class WindowManager() : BtManager(){
     private fun setBleButtonsEnabled(isEnabled: Boolean) {
         binding.windowOpenBt.isEnabled = isEnabled
         binding.windowCloseBt.isEnabled = isEnabled
+        binding.windowOpenNowBt.isEnabled = isEnabled
+        binding.windowCloseNowBt.isEnabled = isEnabled
         binding.powerOffBt.isEnabled = isEnabled
     }
 

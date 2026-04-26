@@ -52,21 +52,27 @@ class WindowActivity(var windowBinding: ActivityWindowBinding, var motor: Window
         windowBinding.windowCloseBt.setOnClickListener {
             sendCommand(-1)
         }
+        windowBinding.windowOpenNowBt.setOnClickListener {
+            sendCommand(1, false)
+        }
+        windowBinding.windowCloseNowBt.setOnClickListener {
+            sendCommand(-1, false)
+        }
 
         //All motors
         windowBinding.powerOffBt.setOnClickListener{
             motor.writeMotorCharacteristic(0,  0)
         }
     }
-    private fun sendCommand(dir: Int){
+    private fun sendCommand(dir: Int, scheduled: Boolean = true){
         val duty = windowBinding.dutyCycleTextBox.text.toString().toInt() * dir
-        val timeInMs =  getDelayMs()
+        val timeInMs =  if(scheduled) getDelayMs() else 0
         val dirText = if(dir==1) "Open" else "Close"
 
         val sdf = SimpleDateFormat("HH:mm:ss")
         val date = sdf.format(Date().time + (timeInMs.toString().toInt()))
 
-        windowBinding.windowLastCmd.text = "Last command: $dirText (to run at ~$date, in ${timeInMs/1000}s"
+        windowBinding.windowLastCmd.text = "Last command: $dirText (to run at ~$date, in ${timeInMs/1000}s)"
         motor.writeMotorCharacteristic(duty,  timeInMs)
     }
     private fun setupDutySelectorsListeners() {

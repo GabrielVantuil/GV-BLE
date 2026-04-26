@@ -184,6 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="10dp"
                     android:text="@string/windowLastCmdText"
                     android:textAlignment="center"
                     android:textColor="@color/textColorLight"
@@ -191,22 +192,43 @@
                 <Button
                     android:id="@+id/windowOpenBt"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:enabled="false"
                     android:text="@string/windowOpenText"
                     android:textSize="16sp" />
                 <Button
                     android:id="@+id/windowCloseBt"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:enabled="false"
                     android:text="@string/windowCloseText"
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@+id/windowOpenBt" />
+
+                <Button
+                    android:id="@+id/windowOpenNowBt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:enabled="false"
+                    android:text="@string/windowOpenNowText"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/windowCloseBt" />
+                <Button
+                    android:id="@+id/windowCloseNowBt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:enabled="false"
+                    android:text="@string/windowCloseNowText"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/windowOpenNowBt" />
 
             </LinearLayout>
 
@@ -222,7 +244,7 @@
             android:id="@+id/powerOffBt"
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="45dp"
             android:backgroundTint="#FF6600"
             android:enabled="false"
             android:text="@string/motorsOffText"
